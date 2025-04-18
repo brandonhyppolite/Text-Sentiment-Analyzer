@@ -1,41 +1,49 @@
-# Text-Sentiment-Analyzer
-🧠 Sentiment Analyzer
-A lightweight web application that analyzes text sentiment using AWS Comprehend, built with HTML, Tailwind CSS, JavaScript, and AWS Lambda.
+# 🧠 Sentiment Analyzer
 
-📌 What It Does
-Enter any text, and the app will detect the sentiment — Positive, Negative, Neutral, or Mixed — along with confidence scores for each.
-You can either try the live version using Brandon’s deployed backend or set up your own with AWS.
+A simple, serverless web app that detects sentiment in text using **AWS Comprehend** via **AWS Lambda** and **API Gateway**.
 
-⚡ Try It Instantly (No Setup Needed)
-Clone or download this repository.
+Built with:
+- 🔹 HTML
+- 🔹 Tailwind CSS
+- 🔹 JavaScript (Fetch API)
+- 🔹 AWS Lambda (Python)
+- 🔹 AWS Comprehend
 
-Open index.html in your browser.
+---
 
-Enter any sentence and click "Check Sentiment".
+## 🌐 Live Demo (No Setup Needed)
 
-The app will send a request to the deployed AWS Lambda API and return the sentiment result.
+1. Clone or download this repository.
+2. Open `index.html` in your browser.
+3. Type a sentence and click **"Check Sentiment"**.
+4. Get instant results — sentiment and confidence scores — using the deployed AWS Lambda API.
 
-✅ No AWS setup required — uses the hosted API provided in this repo.
+> ✅ No AWS configuration needed. The app uses a hosted endpoint.
 
-🛠️ Want to Deploy Your Own?
-If you want to build and deploy your own backend, follow the steps below:
+---
 
-🔧 Backend (AWS Lambda + API Gateway)
-Create a Lambda function in AWS using Python.
+## 🛠️ Deploy Your Own Version (Optional)
 
-Paste in the lambda_function.py code provided in this repo.
+Want to deploy your own AWS backend? Follow these steps:
 
-Add permissions for AWS Comprehend (use AWSLambdaBasicExecutionRole + ComprehendFullAccess).
+### 1. Set Up AWS Lambda
+- Go to AWS Lambda → Create a new function.
+- Choose Python as your runtime.
+- Paste the code from `lambda_function.py`.
+- Add permissions:
+  - `AWSLambdaBasicExecutionRole`
+  - `ComprehendFullAccess`
 
-Create an API Gateway:
+### 2. Connect via API Gateway
+- Create a new REST API.
+- Add a resource: `/analyze`
+- Add a method: `POST` (linked to your Lambda)
+- Enable **CORS** on both `POST` and `OPTIONS` methods.
+- Deploy the API (e.g., stage name: `prod`)
+- Copy the **Invoke URL**
 
-Create a REST API.
+### 3. Update Frontend (Optional)
+Open `index.html` and update the fetch URL:
 
-Add a POST method to /analyze, pointing to your Lambda.
-
-Enable CORS for both POST and OPTIONS.
-
-Deploy your API and grab the Invoke URL.
-
-🌐 Frontend (Optional Changes)
-In index.html, replace this line with your own URL:
+```js
+fetch("https://your-api-id.execute-api.region.amazonaws.com/prod/analyze", {
